@@ -3,6 +3,11 @@
 {% tailwind_css %}
 <h1 class="bg-red-500 text-white text-3xl"><center>Home page</center></h1>
 
+<div>
+  <h1>Hello {{request.user|title}}</h1>
+</div>
+
+
 
 <div class=" space-y-5 p-8  w-2/4">
     <div class="p-3 bg-red-300 shadow rounded-lg">
