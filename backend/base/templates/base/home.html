@@ -1,13 +1,39 @@
 {% load static %}
-{% load static tailwind_tags %}
-{% tailwind_css %}
 <h1 class="bg-red-500 text-white text-3xl"><center>Home page</center></h1>
 
 <div>
   <h1>Hello {{request.user|title}}</h1>
 </div>
 
+<li><a href="{% url 'calorie_cal' %}">Calorie Calculator</a></li>
+<li><a href="{% url 'calorie_counter' %}">Calorie Tracker</a></li>
+<li><a href="{% url 'ovulation' %}">Ovulation calculator</a></li>
+<li><a href="{% url 'menstruation' %}">Menstruation date calculator</a></li>
+<div class="container">
 
+  {% block content %}
+
+  {% endblock %}
+
+</div>
+<!-- 
+<h1>food items</h1> 
+
+{% for food in food_name %}
+<table>
+  <tr>
+  <th>Item</th>
+  <th>calorie</th>
+</tr>
+<tr>
+  <td>{{ food.foodname }}</td>
+  <td>{{food.calories}}</td>
+</tr>
+</table>
+{% endfor %} -->
+
+
+<!-- 
 
 <div class=" space-y-5 p-8  w-2/4">
     <div class="p-3 bg-red-300 shadow rounded-lg">
@@ -62,7 +88,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
   
 
