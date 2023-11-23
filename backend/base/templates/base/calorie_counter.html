@@ -48,12 +48,12 @@
             </tr>
             {% for c in consumed_food %}
             <tr>
-                <td style="text-align:center">{{c.foodname}}</td>
-                <td style="text-align:center">{{c.calories}}</td>
-                <td style="text-align:center">{{c.fat}}</td>
-                <td style="text-align:center">{{c.carbs}}</td>
-                <td style="text-align:center">{{c.protein}}</td>
-                <td style="text-align:center">{{c.fibres}}</td>
+                <td style="text-align:center">{{c.foodconsumed.foodname}}</td>
+                <td style="text-align:center">{{c.foodconsumed.calories}}</td>
+                <td style="text-align:center">{{c.foodconsumed.fat}}</td>
+                <td style="text-align:center">{{c.foodconsumed.carbs}}</td>
+                <td style="text-align:center">{{c.foodconsumed.protein}}</td>
+                <td style="text-align:center">{{c.foodconsumed.fibres}}</td>
                 
             </tr>
             {% endfor %}
@@ -70,18 +70,39 @@
 
         </table>
     </div>
+
+
+    <div class="col-md-5 ">
+        <div class="">
+            <h4 style="text-align:center">Today's breakdown</h4>
+        </div>
+        <div class="card-header text-white bg-info">
+            <h4 style="text-align:center">Nutrients breakdown</h4>
+        </div>
+        <div class="col-md-12">
+
+            <canvas id="myChart" width="400" height="400"></canvas>
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
 </body>
 
 <script>
     var table = document.getElementById("table");
-    var carbs = 0, protein = 0, fats = 0, calories = 0, fibres=0;
+    var carbs = 0, protein = 0, fat = 0, calories = 0, fibres=0;
 
-    for (var i = 1; i < table.rows.length; i++) {
+    for (var i = 1; i < table.rows.length - 1; i++) {
         console.log(table.rows[i].cells[1].innerHTML);
         calories += parseFloat(table.rows[i].cells[1].innerHTML);
         calories = Math.round(calories);
-        fats += parseFloat(table.rows[i].cells[2].innerHTML);
-        fats = Math.round(fats);
+        fat += parseFloat(table.rows[i].cells[2].innerHTML);
+        fat = Math.round(fat);
         carbs += parseFloat(table.rows[i].cells[3].innerHTML);
         carbs = Math.round(carbs);
         protein += parseFloat(table.rows[i].cells[4].innerHTML);
@@ -90,13 +111,50 @@
         fibres = Math.round(fibres);
        
     }
-    console.log(fats);
+    console.log(fat);
 
     document.getElementById("totalCalories").innerHTML = '<b>' + calories + '(Kcal)</b>';
-    document.getElementById("totalFats").innerHTML = '<b>' + fats + '(gm)</b>';
+    document.getElementById("totalFats").innerHTML = '<b>' + fat + '(gm)</b>';
     document.getElementById("totalCarbs").innerHTML = '<b>' + carbs + '(gm)</b>';
     document.getElementById("totalProtien").innerHTML = '<b>' + protein + '(gm)</b>';
     document.getElementById("totalFibres").innerHTML = '<b>' + fibres + '(gm)</b>';
+
+
+
+    var total = carbs + protein + fat + fibres;
+    var carbsP = Math.round((carbs / total) * 100);
+    var protienP = Math.round((protein / total) * 100);
+    var fatsP = Math.round((fat / total) * 100);
+    var fibresP = Math.round((fibres / total) * 100);
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Carbs ' + carbsP + '%', 'Protein ' + protienP + '%', 'Fats ' + fatsP + '%' , 'Fibres ' + fibresP + '%' ],
+            datasets: [{
+                label: '# of Votes',
+                data: [carbsP, protienP, fatsP,fibresP],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(240, 200, 80, 1)',
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(240, 200, 80, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+
+    });
     
 
 </script>
