@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Food, Consume
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # from django.utils.timezone import timedelta
 import datetime
 
@@ -48,6 +49,14 @@ def calorie_counter(request):
 
     return render(request, 'base/calorie_counter.html', {'foods': foods, 'consumed_food': consumed_food})
 
+
+def delete_fooditem(request, id):
+    consumed_food = Consume.objects.get(id=id)
+    if request.method == 'POST':
+        consumed_food.delete()
+        return redirect('calorie_counter')
+    return render(request, 'base/delete_fooditem.html')
+
 def ovulation(request):
     if request.method == 'POST':
             date = request.POST.get('date') #first date of last month period d/m/y
@@ -75,4 +84,8 @@ def menstruation(request):
             estimated_period_date = estimated_period_date.strftime('%d-%m-%Y')
             return render(request,'base/menstruation.html',{'men_date':estimated_period_date})
     return render(request,'base/menstruation.html')
+
+
+
+
 

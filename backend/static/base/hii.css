@@ -1,0 +1,15 @@
+
+.outer{
+    border: dashed 1px rgb(192, 58, 58);
+     width:250px;
+ }
+ .centered{
+     background-color:rgb(167, 103, 146);
+     color: black;
+     text-align:center;
+ }
+ .container2{
+    display: flex;
+    flex-direction: column;
+  
+ }
