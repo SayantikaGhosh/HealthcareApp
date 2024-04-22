@@ -7,11 +7,106 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'base/main.css' %}">
-<link rel="stylesheet" href="{% static 'base/hii.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'base/styles.css' %}">
 
-<body>
-<header class="site-header">
+{% block content %} {% endblock %}
+
+  <body style="font-family: verdana;color: #3B4856;">
+      <div class="topnav" id="myTopnav">
+          <a href="{% url 'home' %}" class="active">Mindfullness</a>
+          {% if user.is_authenticated %}
+          <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+      {% endif %}
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+
+        
+        <img src="/static/bgimg2.jpg" class="bg">
+      
+  
+        <div class="subtext">
+         <h1>Hola {{request.user|title}}, let's come together to get our life back on track  </h1>
+     
+        </div>
+     
+       <div class="main">
+         <h1>Let's take a step towards a balanced and healthy lifestyle</h1>
+
+         <ul class="cards">
+           <li class="cards_item">
+             <div class="card">
+               <div class="card_image"><img src="/static/slide1.jpg" alt="Cinque Terre"></div>
+               <div class="card_content">
+                 <h2 class="card_title">Calorie goal calculator</h2>
+                 <p class="card_text">Not sure how much calorie you must consume? fear not clear your doubts with our calorie calculator</p>
+                 <a href="{% url 'calorie-cal' %}">
+                  <button class="btn card_btn">Explore</button>
+                 </a>
+               </div>
+             </div>
+           </li>
+           <li class="cards_item">
+             <div class="card">
+               <div class="card_image"><img src="/static/slide2.jpg" alt="Cinque Terre"></div>
+               <div class="card_content">
+                 <h2 class="card_title">Menstrual Cycle Tracker</h2>
+                 <p class="card_text">In order to track your period cycle we have introduced Menstrual cycle tracker for you check it out</p>
+                 <a href="{% url 'menstruation' %}">
+                  <button class="btn card_btn">Explore</button>
+                 </a>
+               </div>
+             </div>
+           </li>
+           <li class="cards_item">
+             <div class="card">
+               <div class="card_image"><img src="/static/slide4.jpg" alt="Cinque Terre"></div>
+               <div class="card_content">
+                 <h2 class="card_title">Distress with Yoga</h2>
+                 <p class="card_text">Stressed after a hectic day ? come join the world of yoga and meditation
+                 </p>
+                 <a href="{% url 'recommend-yoga' %}">
+                  <button class="btn card_btn">Explore</button>
+                 </a>
+               </div>
+             </div>
+           </li>
+           <li class="cards_item">
+             <div class="card">
+               <div class="card_image"><img src="/static/slide3.jpg" alt="Cinque Terre"></div>
+               <div class="card_content">
+                 <h2 class="card_title">Calorie Tracker</h2>
+                 <p class="card_text">Track your daily intake of calories with our specialized  calorie tracker</p>
+                 <a href="{% url 'calorie_counter' %}">
+                  <button class="btn card_btn">Explore</button>
+                 </a>
+               </div>
+             </div>
+           </li>
+         </ul>
+        
+       </div>
+
+       <div> 
+     
+     </div>
+
+
+       
+       <h3 class="made_by">Made with ♡</h3>
+     
+         
+
+
+
+<!-- <header class="site-header">
   <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
     <div class="container">
       <a class="navbar-brand mr-4" href="{% url 'home' %}">Mindfullness</a>
@@ -22,7 +117,7 @@
         <div class="navbar-nav mr-auto">
           <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
         </div>
-        <!-- Navbar Right Side -->
+        // Navbar Right Side 
         <div class="navbar-nav">
             {% if user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
@@ -34,114 +129,27 @@
       </div>
     </div>
   </nav>
-</header>
+</header> -->
 
-<div>
-  <h1>Hello {{request.user|title}}</h1>
-</div>
-<!-- 
-<li><a href="{% url 'calorie_cal' %}">Calorie Calculator</a></li>
-<li><a href="{% url 'calorie_counter' %}">Calorie Tracker</a></li>
-<li><a href="{% url 'ovulation' %}">Ovulation calculator</a></li>
-<li><a href="{% url 'menstruation' %}">Menstruation date calculator</a></li> -->
+<script>
+      function myFunction(){
+        var x = document.getElementById("myTopnav");
+        if(x.className=="topnav"){
+          x.className += "responsive";
+        }
+        else{
+          x.className = "topnav";
+        }
+      }
+      </script>
 
-<div class="container2">
 
-<div class="outer">
-  <div class="centered"><a href="{% url 'calorie_cal' %}">Calorie Calculator</a></div>
-  <div><b>Calorie Calculator</b></div>
-</div>
-<br>
-<div class="outer">
-  <div class="centered"><a href="{% url 'calorie_counter' %}">Calorie Tracker</a></div>
-  <div><b>Calorie Tracker</b></div>
-</div>
-<br>
-<div class="outer">
-  <div class="centered"><a href="{% url 'ovulation' %}">Ovulation date calculator</a></div>
-  <div><b>Ovulation date calculator</b></div>
-</div>
-<br>
-<div class="outer">
-  <div class="centered"><a href="{% url 'menstruation' %}">Menstruation date calculator</a></div>
-  <div><b>Menstruation date calculator</b></div>
-</div>
+  </body>
 
-</div>
-
-<div>
-
-  {% block content %}
-
-  {% endblock %}
-
-</div>
-</body>
 </html>
-<!-- 
-<h1>food items</h1> 
-
-{% for food in food_name %}
-<table>
-  <tr>
-  <th>Item</th>
-  <th>calorie</th>
-</tr>
-<tr>
-  <td>{{ food.foodname }}</td>
-  <td>{{food.calories}}</td>
-</tr>
-</table>
-{% endfor %} -->
 
 
 
-<!-- 
-<div class=" space-y-5 p-8  w-2/4">
-    <div class="p-3 bg-red-300 shadow rounded-lg">
-      <h3 class="text-xl text-black"><a href="{% url 'calorie_cal' %}">Calorie Calculator</a></h3>
-    </div>
-    
-    <div class="p-3 bg-red-300 shadow rounded-lg">
-      <h3 class="text-xl text-black">LUNCH</h3>
-      <div class="flex space-x-4 mb-6 text-sm font-medium">
-        <div class="flex-auto flex space-x-4">
-          <button class="h-10 px-6 font-semibold rounded-md border text-white hover:bg-black" type="submit">
-            ADD+
-          </button>
-          <button class="h-10 px-6 font-semibold rounded-md border text-white hover:bg-black" type="button">
-            DELETE
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="p-3 bg-red-300 shadow rounded-lg">
-      <h3 class="text-xl text-black">SNACKES</h3>
-      <div class="flex space-x-4 mb-6 text-sm font-medium">
-        <div class="flex-auto flex space-x-4">
-          <button class="h-10 px-6 font-semibold rounded-md border text-white hover:bg-black" type="submit">
-            ADD+
-          </button>
-          <button class="h-10 px-6 font-semibold rounded-md border text-white  hover:bg-black" type="button">
-            DELETE
-          </button>
-        </div>
-      </div>
-    </div>
-  <div class="p-3 bg-red-300 shadow rounded-lg">
-    <h3 class="text-xl text-black">DINNER</h3>
-    <div class="flex space-x-4 mb-6 text-sm font-medium">
-      <div class="flex-auto flex space-x-4">
-        <button class="h-10 px-6 font-semibold rounded-md border text-white hover:bg-black" type="submit">
-          ADD+
-        </button>
-        <button class="h-10 px-6 font-semibold rounded-md border text-white hover:bg-black" type="button">
-          DELETE
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
 
-  
+
 

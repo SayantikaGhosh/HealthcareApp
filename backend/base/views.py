@@ -3,6 +3,13 @@ from .models import Food, Consume
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # from django.utils.timezone import timedelta
 import datetime
+import spacy
+import joblib
+import pandas as pd
+nlp = spacy.load("en_core_web_lg")
+data = pd.read_csv('static/yoga.csv')
+
+model = joblib.load('static/word_embedding_model')
 
 def landing(request):
     return render(request, 'base/root.html')
@@ -20,17 +27,14 @@ def calorie_cal(request):
             height = request.POST['height']
             age = request.POST['age']
             gender = request.POST['gender']
-            # print("weight: ",weight)
-            # print("height: ",height)
-            # print("age: ",age)
-            # print("gender: ",gender)
+
             if gender == 'male':
                 result = 66.47 + (13.75 * int(weight)) + (5.003 * int(height)) - (6.755 * int(age))
-                # print(result,"######################")
+                result = round(result)
                 return render(request,'base/calorie_cal.html',{'result':result})
             if gender == 'female':
                 result = 655.1 + (9.563 * int(weight)) + (1.850 * int(height)) - (4.676 * int(age))
-                # print(result,"######################") 
+                result = round(result)
                 return render(request,'base/calorie_cal.html',{'result':result})
     
         return render(request,'base/calorie_cal.html')
@@ -85,7 +89,32 @@ def menstruation(request):
             return render(request,'base/menstruation.html',{'men_date':estimated_period_date})
     return render(request,'base/menstruation.html')
 
+def preprocess(text):
+    doc = nlp(text.lower())
+    tokens = [token.lemma_ for token in doc if token.is_alpha and not token.is_stop]
+    return tokens
 
+def recommend_yoga(user_problem, model):
+    user_tokens = preprocess(user_problem)
+    similar_yoga = []
+    for yoga_name, benefit in zip(data['Asana'],  data['Benefits']):
+        benefit_tokens = preprocess(benefit)
+        similarity = model.wv.n_similarity(user_tokens, benefit_tokens)
+        similar_yoga.append((yoga_name,similarity, benefit))
+    similar_yoga.sort(key=lambda x: x[1], reverse=True)
+    return similar_yoga
+
+
+
+def recommend(request):
+    if request.method == 'POST':
+        problem = request.POST['problem']
+        result = recommend_yoga(problem,model)
+        result = result[0:4]
+        return render(request,'base/recommend_yoga.html',{'result':result})
+
+    return render(request,'base/recommend_yoga.html')
+    
 
 
 
