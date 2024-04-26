@@ -1,7 +1,5 @@
 
-
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,13 +17,22 @@
     
     <br>
     
-    {% if result %}
+    <!-- {% if result %}
     <div class="col-6 shadow">
         <h3>yogas: {{result}} </h3>
     </div>
     <br>
-    {% endif %}
-        
+    {% endif %} -->
+
+    
+        <h3> <ul>
+            {% for item in items %}
+            <li> {{ item }} </li>
+        {% endfor %}
+        </ul></h3>
+    </div>
+    <br>
+    
     
     <div class="col-6 shadow">
         <form method="POST">
@@ -39,6 +46,7 @@
           </form>
     </div>
 </center>
+
  
 </body>
 </html>

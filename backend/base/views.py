@@ -111,7 +111,14 @@ def recommend(request):
         problem = request.POST['problem']
         result = recommend_yoga(problem,model)
         result = result[0:4]
-        return render(request,'base/recommend_yoga.html',{'result':result})
+        
+        yoga_names = [yoga[0] for yoga in result]
+        benefits = [yoga[2] for yoga in result]
+
+        items = list(zip(yoga_names, benefits))
+
+        print(items)
+        return render(request,'base/recommend_yoga.html',{'items':items})
 
     return render(request,'base/recommend_yoga.html')
     
