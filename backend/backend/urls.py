@@ -30,7 +30,7 @@ urlpatterns = [
     path('recommend-yoga/', base_view.recommend, name = 'recommend-yoga'),
     # path('login/', user_view.login_page, name='login'),
     path('login/', auth_view.LoginView.as_view(template_name='user/login.html'), name='login'),
-     path('logout/', auth_view.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
+    path('logout/', auth_view.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
     path('', include('base.urls')),
     
 ]
