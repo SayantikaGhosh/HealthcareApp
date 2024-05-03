@@ -1,7 +1,234 @@
-<!-- {% extends 'base/home.html' %}
 
-    {% block content %} -->
-    <!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+  box-sizing:border-box;
+  margin:0;
+}
+
+
+body {
+  background: linear-gradient(90deg, #BE8CEF 0%, rgba(61, 46, 232, 0.83) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  font-size:10px;
+  height: 100vh;
+  margin: -20px 0 50px;
+}
+
+.container {
+  background-color: white;
+  border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+      0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 450px;
+  min-width:370px;
+}
+
+
+h2 {
+  font-size:2rem;
+  margin-bottom:1rem;
+}
+.form-container {
+  display:inline-flex;
+}
+
+.left-container {
+  display:flex;
+  flex:1;
+  height:460px;
+  background-color: white;
+  justify-content:center;
+  align-items:center;
+}
+.right-container {
+  display:flex;
+  flex:1;
+  height:460px;
+  background-color: white;
+  justify-content:center;
+  align-items:center;
+}
+
+.left-container {
+  display:flex;
+  flex:1;
+  height:460px;
+  background-color: white;
+  justify-content:center;
+  align-items:center;
+}
+
+
+
+.right-inner-container {
+  width:70%;
+  height:80%;
+  text-align:center;
+}
+
+
+input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+  font-size:0.8rem;
+}
+
+input:focus{
+  outline:1px solid teal;
+}
+
+button {
+  border-radius: 30px;
+  border: 1px solid #00b4cf;
+  background-color: #00b4cf;
+  color: #171515;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  cursor:pointer;
+}
+
+button:hover {
+  opacity:0.7;
+}
+@media only screen and (max-width: 600px) {
+  .left-container{
+    display: none;
+  }
+  .lg-view {
+    display:none;  
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .sm-view {
+    display:none;  
+  }
+}
+
+form p {
+  text-align:left;
+}
+
+.output {
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+    </style>
+    <title>Ovulation date calculator</title>
+</head>
+<body>
+  <div class="output">
+    {% if ovulation_date %}
+        <h1>Your Ovulation Date: {{ovulation_date}}</h1>
+    {% endif %}
+  </div>
+  <div class="container">
+    <div class="form-container">
+      <div class="left-container">
+        
+        <img src="/static/ovu.jpg">
+        
+      
+        </div>
+      <div class="right-container">
+        <div class="right-inner-container">
+          <form method="POST">
+            {% csrf_token %}
+        <h2 class="lg-view">Ovulation calculator</h2>
+       
+       
+       <label>Enter the first date of your menstrual period(dd/mm/yy):</label>
+          <input type="date" name="date" placeholder="dd-mm-yyyy" value=""
+          min="1997-01-01" max="2030-12-31"class="form-control" >
+
+          <label>Enter length of menstrual cycle:</label>
+          <input type="number" name="cycle_length" class="form-control">
+
+          <button type="submit">Calculate</button>
+          
+        </div>
+
+        </div>
+        
+  
+        
+      </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>  
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -48,7 +275,7 @@
  
 </body>
 </html>
-    <!-- {% endblock %} -->
+  
 
 
-
+ -->

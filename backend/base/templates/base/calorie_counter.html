@@ -1,5 +1,189 @@
 
-<h1>calorie counter</h1>
+<h1 style="text-align: center;">Calorie Tracker</h1>
+    <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    </head>
+    
+    <body>
+    <div style="text-align:center" class="row">
+        <div class="col-md-12">
+            <form method="POST">
+                <div class="form-group row">
+                    {% csrf_token %}
+                    <label class="col-md-2">
+                        <b>Select Food To Add</b>
+                    </label>
+                    <select class="col-md-6 form-control" name="food_consumed" id="food_consumed">
+                        {% for food in foods %}
+                        <option value="{{food.foodname}}">{{food.foodname}}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-success" type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-100">
+            <div>
+                <h4 style="text-align:center"> Today's Consumption</h4>
+            </div>
+    
+            <table id="table" style="width:200px" table class="table table-success table-striped ">
+                <tr class="table table-success table-striped">
+                    <th style="text-align:center">Food item</th>
+                    <th style="text-align:center">Calories(Kcal)</th>
+                    <th style="text-align:center">Fats(gm)</th>
+                    <th style="text-align:center">Carbs(gm)</th>
+                    <th style="text-align:center">Protein(gm)</th>
+                    <th style="text-align:center">Fibres(gm)</th>
+                    <th style="text-align:center">Remove Item</th>
+                </tr>
+                {% for c in consumed_food %}
+                <tr>
+                    <td style="text-align:center">{{c.foodconsumed.foodname}}</td>
+                    <td style="text-align:center">{{c.foodconsumed.calories}}</td>
+                    <td style="text-align:center">{{c.foodconsumed.fat}}</td>
+                    <td style="text-align:center">{{c.foodconsumed.carbs}}</td>
+                    <td style="text-align:center">{{c.foodconsumed.protein}}</td>
+                    <td style="text-align:center">{{c.foodconsumed.fibres}}</td>
+                    <td style="text-align:center"><a class="btn btn-danger" href="{% url 'delete_fooditem' c.pk %}">X</a>
+                    </td>
+                </tr>
+                {% endfor %}
+    
+                <tr class="table-info">
+                    <td style="text-align:center" id="name"><b>Total</b></td>
+                    <td style="text-align:center" id="totalCalories"><b></b></td>
+                    <td style="text-align:center" id="totalFats"><b></b></td>
+                    <td style="text-align:center" id="totalCarbs"><b></b></td>
+                    <td style="text-align:center" id="totalProtien"><b></b></td>
+                    <td style="text-align:center" id="totalFibres"><b></b></td>
+    
+                </tr>
+    
+            </table>
+        </div>
+    
+    
+        <div class="col-md-5 ">
+            <div class="">
+                <h4 style="text-align:center">Today's breakdown</h4>
+            </div>
+            <div class="card-header text-white bg-success">
+                <h4 style="text-align:center">Nutrients breakdown</h4>
+            </div>
+            <div class="col-md-12">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    
+    </div>
+  
+    
+    
+    
+    </body>
+    
+    <script>
+        var table = document.getElementById("table");
+        var carbs = 0, protein = 0, fat = 0, calories = 0, fibres=0;
+    
+        for (var i = 1; i < table.rows.length - 1; i++) {
+            console.log(table.rows[i].cells[1].innerHTML);
+            calories += parseFloat(table.rows[i].cells[1].innerHTML);
+            calories = Math.round(calories);
+            fat += parseFloat(table.rows[i].cells[2].innerHTML);
+            fat = Math.round(fat);
+            carbs += parseFloat(table.rows[i].cells[3].innerHTML);
+            carbs = Math.round(carbs);
+            protein += parseFloat(table.rows[i].cells[4].innerHTML);
+            protein = Math.round(protein);
+            fibres += parseFloat(table.rows[i].cells[5].innerHTML);
+            fibres = Math.round(fibres);
+           
+        }
+        console.log(fat);
+    
+        document.getElementById("totalCalories").innerHTML = '<b>' + calories + '(Kcal)</b>';
+        document.getElementById("totalFats").innerHTML = '<b>' + fat + '(gm)</b>';
+        document.getElementById("totalCarbs").innerHTML = '<b>' + carbs + '(gm)</b>';
+        document.getElementById("totalProtien").innerHTML = '<b>' + protein + '(gm)</b>';
+        document.getElementById("totalFibres").innerHTML = '<b>' + fibres + '(gm)</b>';
+        var total = carbs + protein + fat + fibres;
+    var carbsP = Math.round((carbs / total) * 100);
+    var protienP = Math.round((protein / total) * 100);
+    var fatsP = Math.round((fat / total) * 100);
+    var fibresP = Math.round((fibres / total) * 100);
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Carbs ' + carbsP + '%', 'Protein ' + protienP + '%', 'Fats ' + fatsP + '%' , 'Fibres ' + fibresP + '%' ],
+            datasets: [{
+                label: 'nutrient breakdown' ,
+                data: [carbsP, protienP, fatsP,fibresP],
+                backgroundColor: [
+                'rgba(120, 148, 97,0.8)',
+                'rgba(183, 132, 183, 0.8)',
+                'rgba(254, 138, 113, 0.8)',
+                'rgba(238, 165, 166, 0.8)'
+
+                ],
+                borderColor: [
+                'rgba(122, 162, 227,0.8)',
+                'rgba(183, 132, 183, 0.8)',
+                'rgba(254, 138, 113, 0.8)',
+                'rgba(238, 165, 166, 0.8)'
+
+                ],
+                borderWidth: 1,
+               hoverOffset:4
+            }]
+        },
+
+    });
+    
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h1>calorie counter</h1>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -153,7 +337,7 @@ var myChart = new Chart(ctx, {
 
 </script>
 </html>
-
+ -->
 
 
 
