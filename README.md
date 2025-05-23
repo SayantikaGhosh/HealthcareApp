@@ -48,30 +48,7 @@ This wellness web application is designed to help users manage and improve their
 
 ## Screenshots
 
+  Attached to the repositoy inside the screenshots folder.
 
-### Home Page
-![Home Page](screenshots/Screenshot(45).png)
-![Home Page](screenshots/Screenshot(49).png)
-![Home Page](screenshots/Screenshot(50).png)
 
-### Login Page
-![Login Page](screenshots/Screenshot(46).png)
-
-### Calorie Calculator
-![Calorie Calculator](screenshots/Screenshot(51).png)
-
-### Calorie Tracker
-![Calorie Tracker](screenshots/Screenshot(57).png)
-
-### Menstrual Date Calculator
-![Menstrual Date Calculator](screenshots/Screenshot(52).png)
-
-### Ovulation Calculator
-![Ovulation Calculator](screenshots/Screenshot(61).png)
-
-### Yoga Recommendation
-![Yoga Recommendation](screenshots/Screenshot(69).png)
-
-### Yoga Output
-![Yoga Output](screenshots/Screenshot(70).png)
 
