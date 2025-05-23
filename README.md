@@ -48,6 +48,7 @@ This wellness web application is designed to help users manage and improve their
 
 ## Screenshots
 
+
 ### Home Page
 ![Home Page](screenshots/Screenshot(45).png)
 ![Home Page](screenshots/Screenshot(49).png)
