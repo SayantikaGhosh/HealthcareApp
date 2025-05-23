@@ -8,7 +8,7 @@ This wellness web application is designed to help users manage and improve their
   Log and monitor daily calorie intake to support dietary goals.
 
 - **Yoga Recommendation System**  
-  Personalized yoga suggestions generated using a Word2Vec-based model that finds semantically similar poses based on user goals and fitness levels.
+  Personalized yoga suggestions generated using a Word2Vec-based model that finds semantically similar poses based on user health problems.
 
 - **Menstrual Cycle Tracker**  
   Track period dates and monitor cycle patterns to support reproductive health awareness.
